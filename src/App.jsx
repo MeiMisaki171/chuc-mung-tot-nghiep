@@ -1,23 +1,24 @@
-import { CONFIG } from './config'
-import { useConfetti } from './hooks/useConfetti'
-import GiftBox from './components/GiftBox'
-import GraduationCap from './components/GraduationCap'
-import './App.css'
+import { CONFIG } from "./config";
+import { useConfetti } from "./hooks/useConfetti";
+import GiftBox from "./components/GiftBox";
+import vnuLogo from "./assets/vnu-hus-logo.jpg";
+import gradPhoto from "./assets/graduation-photo.jpg";
+import "./App.css";
 
 const FLOAT_DECOS = [
-  { emoji: '🎉', style: { top: '6%', left: '2%', animationDelay: '0s' } },
-  { emoji: '✨', style: { top: '2%', right: '4%', animationDelay: '0.8s' } },
-  { emoji: '🎊', style: { top: '38%', left: '-2%', animationDelay: '1.4s' } },
-  { emoji: '📜', style: { top: '60%', right: '0%', animationDelay: '2s' } },
-]
+  { emoji: "🎉", style: { top: "6%", left: "2%", animationDelay: "0s" } },
+  { emoji: "✨", style: { top: "2%", right: "4%", animationDelay: "0.8s" } },
+  { emoji: "🎊", style: { top: "38%", left: "-2%", animationDelay: "1.4s" } },
+  { emoji: "📜", style: { top: "60%", right: "0%", animationDelay: "2s" } },
+];
 
 function App() {
-  const { canvasRef, burst, spawnParticles } = useConfetti()
-  const { tenBan } = CONFIG
+  const { canvasRef, spawnParticles } = useConfetti();
+  const { tenBan, nganhHoc, lop, tenNguoiGui } = CONFIG;
 
   const handleGiftOpen = (originXRatio) => {
-    spawnParticles(originXRatio, 30)
-  }
+    spawnParticles(originXRatio, 30);
+  };
 
   return (
     <>
@@ -34,20 +35,40 @@ function App() {
           </span>
         ))}
 
-        <div className="eyebrow">Lễ tốt nghiệp</div>
+        <header className="school-header">
+          <img
+            src={vnuLogo}
+            alt="Logo Trường ĐHKH Tự nhiên - VNU-HUS"
+            className="school-logo"
+          />
+          <div className="school-info">
+            <span className="school-name">TRƯỜNG ĐH KHOA HỌC TỰ NHIÊN</span>
+            <span className="school-sub">VNU-HUS · {lop}</span>
+          </div>
+        </header>
 
-        <div className="cap-wrap">
-          <GraduationCap />
+        <div className="hero">
+          <div className="photo-wrap">
+            <img
+              src={gradPhoto}
+              alt={`${tenBan} trong ngày tốt nghiệp`}
+              className="grad-photo"
+            />
+            <span className="photo-badge">🎓</span>
+          </div>
+          <p className="major-tag">{nganhHoc}</p>
         </div>
+
+        <div className="eyebrow">Lễ tốt nghiệp</div>
 
         <h1>
           Chúc mừng <span className="highlight">{tenBan}</span>
           <br />
-          tốt nghiệp! 🎓
+          tốt nghiệp!
         </h1>
         <p className="subtitle">
-          Bao đêm thức khuya, bao kỳ thi căng thẳng — hôm nay cuối cùng cũng đã hái
-          được trái ngọt. Một chương mới, thật rực rỡ, đang chờ phía trước!
+          Bao đêm thức khuya, bao kỳ thi căng thẳng — hôm nay cuối cùng cũng đã
+          hái được trái ngọt. Một chương mới, thật rực rỡ, đang chờ phía trước!
         </p>
 
         <div className="badges">
@@ -58,34 +79,20 @@ function App() {
 
         <div className="card">
           <p>
-            Gửi em <strong>{tenBan}</strong>,
+            Gửi <strong>{tenBan}</strong>,
           </p>
           <p>
-            Nghe tin em tốt nghiệp đại học, mình thật lòng rất vui và tự hào thay
-            cho em. Đây là một cột mốc không hề dễ dàng, và em đã hoàn thành nó thật
-            xứng đáng.
+            Chúc em luôn giữ vững sự nhiệt huyết, tự tin bước tiếp trên những
+            chặng đường phía trước, và gặt hái thật nhiều thành công trong công
+            việc cũng như cuộc sống. 🎉
           </p>
-          <p>
-            Chúc em luôn giữ vững sự nhiệt huyết, tự tin bước tiếp trên những chặng
-            đường phía trước, và gặt hái thật nhiều thành công trong công việc cũng
-            như cuộc sống. 🎉
-          </p>
-          <div className="signature">— Chúc mừng em nhé! 💐</div>
+          <div className="signature">— From {tenNguoiGui}! 💐</div>
         </div>
 
         <GiftBox onOpen={handleGiftOpen} />
-
-        <button type="button" className="celebrate-btn" onClick={burst}>
-          🎊 Bắn thêm pháo hoa!
-        </button>
-        <div className="hint">
-          Trang đã tự bắn pháo hoa rồi, bấm thêm cho vui cũng được 😄
-        </div>
-
-        <footer>Trang này được làm thủ công với thật nhiều tình cảm.</footer>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

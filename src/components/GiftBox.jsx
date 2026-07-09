@@ -1,38 +1,37 @@
-import { useRef, useState } from 'react'
-import Bouquet from './Bouquet'
+import { useRef, useState } from "react";
+import Bouquet from "./Bouquet";
 
 export default function GiftBox({ onOpen }) {
-  const stageRef = useRef(null)
-  const [isOpen, setIsOpen] = useState(false)
-  const [hint, setHint] = useState('Bấm vào hộp quà để mở nhé 🎁')
+  const stageRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [hint, setHint] = useState("Bấm vào hộp quà để mở nhé 🎁");
 
   const toggleGift = () => {
-    const nextOpen = !isOpen
-    setIsOpen(nextOpen)
+    const nextOpen = !isOpen;
+    setIsOpen(nextOpen);
 
     if (nextOpen) {
-      setHint('Một bó hoa nhỏ dành tặng em đó! 💐')
       if (stageRef.current && onOpen) {
-        const rect = stageRef.current.getBoundingClientRect()
-        onOpen((rect.left + rect.width / 2) / window.innerWidth)
+        const rect = stageRef.current.getBoundingClientRect();
+        onOpen((rect.left + rect.width / 2) / window.innerWidth);
       }
     } else {
-      setHint('Bấm vào hộp quà để mở nhé 🎁')
+      setHint("Bấm vào hộp quà để mở nhé 🎁");
     }
-  }
+  };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      toggleGift()
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleGift();
     }
-  }
+  };
 
   return (
     <div className="gift-section">
       <div
         ref={stageRef}
-        className={`gift-stage${isOpen ? ' open' : ''}`}
+        className={`gift-stage${isOpen ? " open" : ""}`}
         role="button"
         tabIndex={0}
         aria-label="Mở hộp quà"
@@ -53,5 +52,5 @@ export default function GiftBox({ onOpen }) {
       </div>
       <div className="hint">{hint}</div>
     </div>
-  )
+  );
 }
